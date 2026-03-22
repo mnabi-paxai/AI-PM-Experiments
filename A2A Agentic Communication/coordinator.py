@@ -141,4 +141,4 @@ async def run(question: str) -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(run("What are the key trends in AI agents in 2025?"))
+    asyncio.run(run("What is the future of LLMs?"))
