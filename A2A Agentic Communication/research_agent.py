@@ -12,7 +12,10 @@ A2A Concepts:
   - A2AStarletteApplication: Wraps everything into a standards-compliant HTTP server
 """
 
+import os
 import uvicorn
+from dotenv import load_dotenv
+from tavily import TavilyClient
 from a2a.server.apps import A2AStarletteApplication
 from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.agent_execution import AgentExecutor, RequestContext
@@ -25,6 +28,9 @@ from a2a.types import (
     Part,
     TextPart,
 )
+
+load_dotenv()
+_tavily = TavilyClient(api_key=os.environ["TAVILY_API_KEY"])
 
 
 # ── Agent Logic ───────────────────────────────────────────────────────────────
@@ -51,16 +57,13 @@ class ResearchExecutor(AgentExecutor):
             )
         )
 
-        # Simulate research — replace with a real search API (Tavily, Perplexity, etc.)
-        notes = f"""Research Notes — Topic: {question}
-
-1. Multi-agent architectures are the dominant pattern for complex AI tasks in 2025.
-2. A2A (Agent-to-Agent) protocol provides a vendor-neutral standard for inter-agent calls.
-3. Reasoning models (o1, DeepSeek-R1, Gemini 2.5) outperform base models on multi-step tasks.
-4. Key open problems: persistent memory, long-horizon planning, and cost efficiency.
-5. Deployment patterns are shifting to "agent mesh" — loosely coupled agents with discovery layers.
-6. Tool use has matured: agents now reliably handle file I/O, code execution, and web browsing.
-"""
+        # Call Tavily to get real search results for the question
+        response = _tavily.search(question, max_results=5)
+        snippets = "\n\n".join(
+            f"- {r['title']}\n  {r['content']}"
+            for r in response["results"]
+        )
+        notes = f"Research Notes — Topic: {question}\n\n{snippets}"
 
         # Attach the result as an Artifact — this is the agent's "return value"
         await task_updater.add_artifact(

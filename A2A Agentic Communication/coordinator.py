@@ -141,4 +141,4 @@ async def run(question: str) -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(run("What is the future of LLMs?"))
+    asyncio.run(run("What is the future of open LLMs?"))

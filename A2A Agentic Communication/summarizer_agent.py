@@ -45,14 +45,18 @@ class SummarizerExecutor(AgentExecutor):
             )
         )
 
-        # Extract numbered lines and reformat as bullet points
-        # Replace this with: summary = call_llm(f"Summarize: {raw_notes}")
-        lines = [
-            line.strip()
-            for line in raw_notes.splitlines()
-            if line.strip() and line.strip()[0].isdigit()
-        ]
-        bullet_points = "\n".join(f"  • {line[2:].strip()}" for line in lines)
+        # Extract the title line from each Tavily result block (lines starting with "- ")
+        # Replace this block with a real LLM call for production use.
+        bullets = []
+        blocks = raw_notes.strip().split("\n\n")
+        for block in blocks:
+            lines = [l.strip() for l in block.splitlines() if l.strip()]
+            for line in lines:
+                if line.startswith("- "):
+                    bullets.append(f"  • {line[2:].strip()}")
+                    break
+
+        bullet_points = "\n".join(bullets) if bullets else raw_notes[:500]
         summary = f"Executive Summary\n{'─' * 40}\n{bullet_points}\n"
 
         await task_updater.add_artifact(
