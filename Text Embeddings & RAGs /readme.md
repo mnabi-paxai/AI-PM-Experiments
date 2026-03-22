@@ -1,3 +1,4 @@
+<!-- Press Shift + Command + V to open the Markdown Preview. -->
 # RAG — Research Paper Q&A System
 
 A persistent, growing knowledge base for academic papers. Ask natural language questions and get cited answers backed by the actual text — with paper name and page number for every claim.
