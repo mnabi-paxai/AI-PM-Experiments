@@ -155,11 +155,51 @@ the more orchestration steps, and the higher the probability of one step going w
 
 ---
 
+## Follow-Up: High-Income Distribution Test (`run_tax_high_test.py`)
+
+The original 93.3% result used equal sampling across incomes up to $260k —
+meaning only ~7 samples crossed 5 brackets, and none crossed 6 or 7.
+
+A follow-up test weighted 22 of 30 samples toward higher brackets:
+
+| Tier | n | LLM+Tool accuracy |
+|---|---|---|
+| Brackets 1–3 ($20k–$110k) | 4 | **100%** |
+| Brackets 1–4 ($110k–$191k) | 4 | **100%** |
+| Brackets 1–5 ($191k–$243k) | 10 | **90%** |
+| Brackets 1–6 ($243k–$609k) | 8 | **12.5%** |
+| Brackets 1–7 ($609k+) | 4 | **0%** |
+| **Overall** | **30** | **60.0%** |
+
+**The 93.3% figure was an artifact of the income distribution.** The tool hits
+a hard ceiling as bracket depth increases because 6-bracket calculations require
+~14 tool calls and 7-bracket calculations require ~16+. With MAX_TOOL_TURNS=15,
+most high-income samples exhaust the turn limit before completing.
+
+This reveals a **second failure mode** beyond wrong inputs:
+
+| Failure mode | What happens | Income range |
+|---|---|---|
+| Wrong slice boundary | Tool call succeeds, LLM fed wrong input | $191k–$260k |
+| Turn limit exhaustion | LLM uses correct algorithm, runs out of turns | $243k+ |
+
+The tool-use accuracy by bracket depth:
+```
+2–3 brackets:   100%   (3–7 tool calls)
+4 brackets:     100%   (10–11 tool calls)
+5 brackets:      90%   (13–14 tool calls)
+6 brackets:    12.5%   (14–15 calls needed, limit hit)
+7 brackets:       0%   (16+ calls needed, limit always hit)
+```
+
+---
+
 ## The Core Insight
 
 ```
 Compound Interest (5 fixed steps):    Tool accuracy = 100%
-Tax Brackets (3–14 variable steps):   Tool accuracy = 93.3%
+Tax Brackets — balanced dist.:        Tool accuracy = 93.3%
+Tax Brackets — high-income dist.:     Tool accuracy = 60.0%
 ```
 
 The difference is not the tool. The tool executed every calculation perfectly.
@@ -167,15 +207,17 @@ The difference is **orchestration complexity**:
 
 - Fixed formula → fixed steps → LLM always knows exactly what to call
 - Conditional/variable formula → LLM must decide steps → errors compound
+- More brackets → more steps → turn limit becomes the binding constraint
 
 This reveals the boundary of what tool use can fix:
 
 | Problem type | Tool use fixes it? | Why |
 |---|---|---|
 | Fixed formula (compound interest) | ✓ Yes | Same steps every time |
-| Variable steps (tax brackets) | Mostly | More steps = more orchestration risk |
+| Variable steps, low depth (2–4 brackets) | ✓ Yes | Steps fit within turn budget |
+| Variable steps, high depth (6–7 brackets) | ✗ No | Steps exceed turn budget |
 | Iterative/looping (mortgage amortization) | ✗ No | Tool can't loop; LLM would need 360 calls |
-| Ambiguous logic (% change on wrong base) | ✗ No | Error is in problem understanding, not execution |
+| Arithmetic errors (pct chains) | ✓ Yes | Tool computes what LLM knows to call |
 
 ---
 
@@ -189,7 +231,14 @@ the more failure modes exist. A 7-step orchestration is not 7× safer than a 1-s
 Tax calculation requires a different number of tool calls depending on the input.
 This variability means the LLM is doing more work than just "call the right tools in order."
 
-**3. The 6.7% failure rate on tax matters more than the 0% rate on multiplication.**
+**3. Turn budget is a hard constraint, not a soft one.**
+The 93.3% accuracy observed with balanced sampling dropped to 60% when sampling
+weighted toward high-income brackets — not because the LLM got worse, but because
+those brackets require more tool calls than MAX_TOOL_TURNS=15 allows. In production,
+any agentic tool-use system has a turn budget; knowing which inputs exhaust it is
+as important as knowing the average case accuracy.
+
+**4. The failure rate on tax matters more than the 0% rate on multiplication.**
 In production, a tax calculation that is wrong by $2,335 is a serious problem — even
 if 93% of calculations are correct. Accuracy requirements depend on the stakes of the task.
 
@@ -212,7 +261,8 @@ verifying the output against a deterministic reference.
 | `run_test_v2.py` | 2-digit multiplication | ~85–95% | ~100% | Tool use fixes simple arithmetic |
 | `run_test_v2.py` | 5-digit multiplication | ~2–10% | ~100% | Tool use fixes complex arithmetic |
 | `run_finance_test.py` | Compound interest | 0% | 100% | Tool use fixes fixed-formula math |
-| **`run_tax_test.py`** | **Tax brackets** | **0%** | **93.3%** | **Tool use fails on variable orchestration** |
+| `run_tax_test.py` | Tax brackets (balanced) | 0% | 93.3% | Tool use degrades with orchestration depth |
+| **`run_tax_high_test.py`** | **Tax brackets (high-income)** | **0%** | **60.0%** | **Turn budget becomes the binding constraint** |
 
 ---
 
@@ -220,9 +270,11 @@ verifying the output against a deterministic reference.
 
 ```
 LLM Accuracy on Multiplication/
-├── run_tax_test.py              ← this experiment
-├── results/results_tax.csv     ← full 30-sample results
-└── readme_tax.md               ← this file
+├── run_tax_test.py               ← balanced income distribution
+├── run_tax_high_test.py          ← high-income stress test
+├── results/results_tax.csv       ← balanced run results
+├── results/results_tax_high.csv  ← high-income run results
+└── readme_tax.md                 ← this file
 ```
 
 ## How to Run
