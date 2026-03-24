@@ -1,0 +1,90 @@
+sample,principal,annual_rate_pct,term_months,extra_payment,correct_months,correct_interest_saved,direct_months,direct_months_correct,direct_interest,direct_interest_correct,tool_months,tool_months_correct,tool_interest,tool_interest_correct,tool_calls,direct_raw,tool_raw
+1,533000.0,5.54,180,100,174,9634.19,169,False,22187.0,False,151,False,68501.0,False,16,"169
+22187","151
+68501"
+2,603000.0,6.96,360,400,275,231457.69,264,False,188837.0,False,,False,,False,0,"264
+188837",could not convert string to float: ''
+3,183000.0,6.0,360,100,290,48090.22,287,False,58949.0,False,283,False,56183.0,False,16,"287
+58949","283
+56183"
+4,447000.0,4.59,360,500,249,130352.23,266,False,93847.0,False,,False,,False,25,"266
+93847",max_turns
+5,273000.0,4.78,360,300,250,83272.47,283,False,68348.0,False,,False,,False,0,"283
+68348",could not convert string to float: ''
+6,166000.0,5.55,180,150,154,12591.76,154,True,21847.0,False,150,False,18323.0,False,17,"154
+21847","150
+18323"
+7,494000.0,7.58,180,300,161,40386.11,158,False,71847.0,False,144,False,122469.0,False,20,"158
+71847","144
+122469"
+8,612000.0,7.27,360,500,260,289596.8,273,False,158847.0,False,,False,,False,0,"273
+158847",could not convert string to float: ''
+9,514000.0,6.34,360,400,268,189496.8,279,False,123847.0,False,272,False,217608.0,False,15,"279
+123847","272
+217608"
+10,485000.0,6.97,360,150,313,104675.77,313,True,76547.0,False,,False,,False,0,"313
+76547",could not convert string to float: ''
+11,738000.0,6.47,360,150,329,97743.27,304,False,107537.0,False,,False,,False,0,"304
+107537",could not convert string to float: ''
+12,169000.0,5.8,360,200,240,71111.93,272,False,67394.0,False,277,False,26904.0,False,19,"272
+67394","277
+26904"
+13,639000.0,4.35,360,150,329,50849.85,309,False,98127.0,False,260,False,123666.0,False,16,"309
+98127","Based on my detailed amortization calculations:
+
+260
+123666"
+14,165000.0,5.62,360,200,239,67279.92,272,False,42847.0,False,259,False,44080.31,False,16,"272
+42847","259
+44080.31"
+15,662000.0,7.91,360,300,292,241086.38,286,False,154738.0,False,275,False,326865.0,False,15,"286
+154738","275
+326865"
+16,670000.0,7.71,180,400,161,55269.78,141,False,104847.0,False,144,False,118252.0,False,18,"141
+104847","144
+118252"
+17,239000.0,5.94,360,400,212,126165.3,241,False,78628.0,False,203,False,137723.0,False,14,"241
+78628","203
+137723"
+18,538000.0,4.93,360,500,261,153621.47,246,False,146583.0,False,,False,,False,25,"246
+146583",max_turns
+19,745000.0,7.67,360,200,316,170283.66,278,False,164967.0,False,294,False,290747.0,False,15,"278
+164967","294
+290747"
+20,724000.0,4.72,180,300,168,22517.64,141,False,91867.0,False,147,False,141370.0,False,15,"141
+91867","147
+141370"
+21,348000.0,7.07,180,400,148,44017.42,141,False,89847.0,False,,False,,False,0,"141
+89847",could not convert string to float: ''
+22,628000.0,4.87,180,400,161,29920.35,141,False,81487.0,False,141,False,135627.0,False,22,"141
+81487","Based on my calculations working through the amortization schedule month by month:
+
+141
+135627"
+23,484000.0,4.78,360,250,297,86079.82,292,False,78426.0,False,291,False,71644.0,False,14,"292
+78426","291
+71644"
+24,314000.0,6.5,360,150,295,84853.08,309,False,66150.0,False,267,False,144526.0,False,19,"309
+66150","Based on standard mortgage amortization calculations for this scenario:
+
+267
+144526"
+25,439000.0,4.77,180,100,173,7890.56,167,False,23847.0,False,153,False,77019.0,False,17,"167
+23847","153
+77019"
+26,399000.0,7.53,360,300,264,189584.91,241,False,179237.0,False,284,False,127453.0,False,16,"241
+179237","284
+127453"
+27,535000.0,7.44,360,150,316,119797.46,309,False,129378.0,False,257,False,344491.0,False,21,"309
+129378","257
+344491"
+28,604000.0,5.34,180,250,167,21930.89,161,False,44847.0,False,132,False,201434.0,False,17,"161
+44847","132
+201434"
+29,178000.0,6.11,360,150,263,65364.77,269,False,63047.0,False,276,False,49305.0,False,16,"269
+63047","276
+49305"
+30,722000.0,7.92,180,150,173,23491.31,168,False,70942.0,False,144,False,225920.67,False,18,"168
+70942","144
+225920.67"
+o float: ''
