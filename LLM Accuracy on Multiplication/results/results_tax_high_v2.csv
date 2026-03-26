@@ -1,0 +1,31 @@
+sample,income,bracket_tier,correct_tax,llm_direct,direct_correct,llm_tool,tool_correct,tool_calls,direct_raw,tool_raw
+1,804503.23,brackets 1-7,255853.95,244081.7,False,255853.95,True,21,244081.70,255853.95
+2,481238.66,brackets 1-6,138808.28,137316.2,False,138808.28,True,16,137316.20,138808.28
+3,230826.27,brackets 1-5,51550.91,49166.3,False,51550.91,True,13,49166.30,51550.91
+4,359407.24,brackets 1-6,96167.28,101267.67,False,96167.28,True,16,101267.67,96167.28
+5,62830.47,brackets 1-3,8875.7,9594.71,False,8875.7,True,7,9594.71,8875.70
+6,216319.18,brackets 1-5,46908.64,46892.6,False,46908.64,True,13,46892.60,46908.64
+7,658393.33,brackets 1-7,201793.28,207962.13,False,201793.28,True,20,207962.13,201793.28
+8,89480.14,brackets 1-3,14738.63,15818.83,False,14738.63,True,7,15818.83,14738.63
+9,209410.11,brackets 1-5,44697.74,44953.23,False,43300.93,False,10,44953.23,43300.93
+10,218462.15,brackets 1-5,47594.39,47504.89,False,47594.39,True,13,47504.89,47594.39
+11,461009.85,brackets 1-6,131728.2,130542.44,False,131728.2,True,16,130542.44,131728.20
+12,415277.87,brackets 1-6,115722.0,105614.28,False,115722.0,True,16,105614.28,115722.00
+13,218186.04,brackets 1-5,47506.03,47686.45,False,47506.03,True,13,47686.45,47506.03
+14,162848.2,brackets 1-4,32126.07,30724.96,False,32126.07,True,8,"30,724.96",32126.07
+15,185015.62,brackets 1-4,37446.25,37088.44,False,37446.25,True,10,37088.44,37446.25
+16,748667.33,brackets 1-7,235194.66,246533.11,False,,False,0,246533.11,Connection error.
+17,194878.52,brackets 1-5,40047.63,,False,,False,0,Connection error.,Connection error.
+18,548987.15,brackets 1-6,162520.25,,False,,False,0,Connection error.,Connection error.
+19,215041.38,brackets 1-5,46499.74,,False,,False,0,Connection error.,Connection error.
+20,199066.74,brackets 1-5,41387.86,,False,,False,0,Connection error.,Connection error.
+21,210290.48,brackets 1-5,44979.45,,False,,False,0,Connection error.,Connection error.
+22,106840.64,brackets 1-3,18684.25,,False,,False,0,Connection error.,Connection error.
+23,663371.08,brackets 1-7,203635.05,,False,,False,0,Connection error.,Connection error.
+24,449329.49,brackets 1-6,127640.07,,False,,False,0,Connection error.,Connection error.
+25,68679.72,brackets 1-3,10162.54,,False,,False,0,Connection error.,Connection error.
+26,497101.19,brackets 1-6,144360.17,,False,144360.17,True,16,"Request timed out or interrupted. This could be due to a network timeout, dropped connection, or request cancellation. See https://docs.anthropic.com/en/api/errors#long-requests for more details.",144360.17
+27,351648.95,brackets 1-6,93451.88,89047.09,False,93451.88,True,16,89047.09,93451.88
+28,201780.3,brackets 1-5,42256.2,45486.07,False,42256.2,True,13,45486.07,42256.20
+29,129844.52,brackets 1-4,24205.18,23630.68,False,24205.18,True,10,23630.68,24205.18
+30,191078.4,brackets 1-4,38901.32,38581.82,False,38901.32,True,10,38581.82,38901.32

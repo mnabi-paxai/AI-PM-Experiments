@@ -35,9 +35,9 @@ load_dotenv()
 
 CLAUDE_MODEL          = "us.anthropic.claude-sonnet-4-20250514-v1:0"
 RESULTS_DIR           = os.path.join(os.path.dirname(__file__), "results")
-DELAY_BETWEEN_SAMPLES = 0.5
+DELAY_BETWEEN_SAMPLES = 5.0   # higher turn count = more API calls per sample; avoid rate limit
 TOLERANCE             = 1.00   # within $1.00 is considered correct
-MAX_TOOL_TURNS        = 15
+MAX_TOOL_TURNS        = 40     # 7-bracket calc needs ~20 calls minimum; 40 gives full headroom
 
 
 # ── 2024 Tax Brackets ─────────────────────────────────────────────────────────
@@ -186,7 +186,7 @@ def ask_with_tool(client, income: float):
     for _ in range(MAX_TOOL_TURNS):
         response = client.messages.create(
             model=CLAUDE_MODEL,
-            max_tokens=1024,
+            max_tokens=2048,
             tools=CALCULATOR_TOOL,
             messages=messages,
         )
@@ -232,7 +232,7 @@ def run_test(client):
     print(f"  {'-'*84}")
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
-    csv_path = os.path.join(RESULTS_DIR, "results_tax_high.csv")
+    csv_path = os.path.join(RESULTS_DIR, "results_tax_high_v3.csv")
 
     direct_correct = tool_correct = total_calls = 0
     rows = []
